@@ -148,7 +148,7 @@ class iPizza implements ProtocolInterface
     public function getRequestSignature($data)
     {
         $hash = $this->generateHash($data);
-        
+
         if (is_file($this->privateKey)) {
             $keyId = openssl_get_privatekey('file://'.$this->privateKey);
         }
@@ -176,11 +176,11 @@ class iPizza implements ProtocolInterface
     {
         $hash = $this->generateHash($responseData, $encoding);
 
-        if (is_file($this->privateKey)) {
-            $keyId = openssl_get_privatekey('file://'.$this->privateKey);
+        if (is_file($this->publicKey)) {
+            $keyId = openssl_pkey_get_public('file://'.$this->publicKey);
         }
         else {
-            $keyId = openssl_get_privatekey($this->privateKey);
+            $keyId = openssl_pkey_get_public($this->publicKey);
         }
 
         $result = openssl_verify($hash, base64_decode($responseData[Fields::SIGNATURE]), $keyId);
