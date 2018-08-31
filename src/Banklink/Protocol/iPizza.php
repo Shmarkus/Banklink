@@ -13,6 +13,7 @@ use Banklink\Protocol\Util\ProtocolUtils;
  *
  * @author Roman Marintsenko <inoryy@gmail.com>
  * @author Markus Karileet <markus.karileet@codehouse.ee>
+ * @author KaidoJ <jast112@gmail.com>
  * 
  * @since  20.02.2015
  */
@@ -175,7 +176,13 @@ class iPizza implements ProtocolInterface
     {
         $hash = $this->generateHash($responseData, $encoding);
 
-        $keyId = openssl_pkey_get_public('file://'.$this->publicKey);
+        if (is_file($this->privateKey)) {
+            $keyId = openssl_get_privatekey('file://'.$this->privateKey);
+        }
+        else {
+            $keyId = openssl_get_privatekey($this->privateKey);
+        }
+
         $result = openssl_verify($hash, base64_decode($responseData[Fields::SIGNATURE]), $keyId);
         openssl_free_key($keyId);
 
