@@ -17,8 +17,6 @@ class Krediidipank extends Banklink
     protected $productionRequestUrl = 'https://i-pank.krediidipank.ee/teller/maksa';
     protected $testRequestUrl = 'https://pangalink.net/banklink/krediidipank';
 
-    protected $responseEncoding = 'ISO-8859-13';
-
     /**
      * Force iPizza protocol
      *
@@ -35,7 +33,7 @@ class Krediidipank extends Banklink
      */
     protected function getEncodingField()
     {
-        return 'VK_CHARSET';
+        return 'VK_ENCODING';
     }
 
     /**
@@ -48,7 +46,7 @@ class Krediidipank extends Banklink
     protected function getAdditionalFields()
     {
         return array(
-            'VK_CHARSET' => 'UTF-8'
+            'VK_ENCODING' => $this->requestEncoding
         );
     }
 }
