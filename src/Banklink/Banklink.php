@@ -101,4 +101,13 @@ abstract class Banklink
     {
         return $this->isTestMode ? $this->testRequestUrl : $this->productionRequestUrl;
     }
+
+    /**
+     * Set test url
+     * @param $testUrl
+     */
+    public function setTestUrl($testUrl)
+    {
+        $this->testRequestUrl = $testUrl;
+    }
 }
