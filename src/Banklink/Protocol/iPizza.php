@@ -147,8 +147,14 @@ class iPizza implements ProtocolInterface
     public function getRequestSignature($data)
     {
         $hash = $this->generateHash($data);
+        
+        if (is_file($this->privateKey)) {
+            $keyId = openssl_get_privatekey('file://'.$this->privateKey);
+        }
+        else {
+            $keyId = openssl_get_privatekey($this->privateKey);
+        }
 
-        $keyId = openssl_get_privatekey('file://'.$this->privateKey);
         openssl_sign($hash, $signature, $keyId);
         openssl_free_key($keyId);
 
