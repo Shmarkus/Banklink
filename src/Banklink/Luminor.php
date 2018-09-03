@@ -5,8 +5,8 @@ namespace Banklink;
 use Banklink\Protocol\iPizza;
 
 /**
- * Banklink implementation for SEB bank using iPizza protocol for communication
- * For specs see http://seb.ee/en/business/collection-payments/collection-payments-web/bank-link-specification
+ * Banklink implementation for Luminor bank using iPizza protocol for communication
+ * For specs see https://www.luminor.ee/sites/default/files/documents/files/common/pangalingi-tehniline-spetsifikatsioon-ee.pdf
  *
  * @author KaidoJ <jast112@gmail.com>
  *
