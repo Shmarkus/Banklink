@@ -16,6 +16,8 @@ class ProtocolUtils
      * For more info see http://www.pangaliit.ee/en/settlements-and-standards/reference-number-of-the-invoice
      *
      * @param integer $orderId Order id
+     * @param string $prefix
+     * @param string $prefixNumberLength Can be max 16
      *
      * @throws \InvalidArgumentException If order id is too long or short
      *

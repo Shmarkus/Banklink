@@ -53,7 +53,7 @@ class iPizzaTest extends TestCase
         );
 
         $request = $this->iPizza->preparePaymentRequestData(1, 100, 'Test payment', 'UTF-8', 'ENG', 'EUR');
-        var_dump($request);
+
         $this->assertEquals($expectedRequestData, $request);
     }
 
