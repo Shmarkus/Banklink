@@ -42,4 +42,15 @@ class ProtocolUtilsTest extends TestCase
         ProtocolUtils::generateOrderReference('');
         ProtocolUtils::generateOrderReference(12345678901234567890);
     }
+
+    /**
+     * Test for normal checksum with prefix
+     */
+    public function testGenerateOrderReferenceWithPrefix()
+    {
+        $orderId  = 3425235672;
+        $orderRef = 10100000034252356727;
+
+        $this->assertEquals($orderRef, ProtocolUtils::generateOrderReference($orderId, '101'));
+    }
 }
