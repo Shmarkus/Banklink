@@ -56,7 +56,7 @@ class iPizza implements ProtocolInterface
      *
      * @return array
      */
-    public function preparePaymentRequestData($orderId, $sum, $message, $outputEncoding, $language = 'EST', $currency = 'EUR')
+    public function preparePaymentRequestData($orderId, $sum, $message, $outputEncoding, $language = 'EST', $currency = 'EUR', $referencePrefix = null)
     {
         $now = new \DateTime();
         $requestData = array(
@@ -68,7 +68,7 @@ class iPizza implements ProtocolInterface
             Fields::CURRENCY         => $currency,
             Fields::SELLER_BANK_ACC  => $this->sellerAccountNumber,
             Fields::SELLER_NAME      => $this->sellerName,
-            Fields::ORDER_REFERENCE  => ProtocolUtils::generateOrderReference($orderId),
+            Fields::ORDER_REFERENCE  => ProtocolUtils::generateOrderReference($orderId, $referencePrefix),
             Fields::DESCRIPTION      => $message,
             Fields::SUCCESS_URL      => $this->endpointUrl,
             Fields::CANCEL_URL       => $this->endpointUrl,

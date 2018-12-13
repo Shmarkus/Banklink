@@ -60,6 +60,35 @@ class SwedbankTest extends TestCase
         $this->assertEquals('https://pangalink.net/banklink/swedbank-common', $request->getRequestUrl());
     }
 
+    public function testPreparePaymentRequestWithReferencePrefix()
+    {
+        $now = new \DateTime();
+        $expectedRequestData = array(
+          'VK_SERVICE'  => '1011',
+          'VK_VERSION'  => '008',
+          'VK_SND_ID'   => 'uid258629',
+          'VK_STAMP'    => '13',
+          'VK_AMOUNT'   => '100',
+          'VK_CURR'     => 'EUR',
+          'VK_ACC'      => '119933113300',
+          'VK_NAME'     => 'Test Testov',
+          'VK_REF'      => '10100000000000000136',
+          'VK_MSG'      => 'Test payment',
+          'VK_RETURN'   => 'http://www.google.com',
+          'VK_CANCEL'   => 'http://www.google.com',
+          'VK_LANG'     => 'ENG',
+          'VK_ENCODING' => 'UTF-8',
+          'VK_MAC'      => 'unit-testing',
+          'VK_DATETIME' => $now->format(\DateTime::ISO8601)
+        );
+
+        $this->swedbank->setReferencePrefix('101');
+        $request = $this->swedbank->preparePaymentRequest(13, 100, 'Test payment', 'ENG', 'EUR');
+
+        $this->assertEquals($expectedRequestData, $request->getRequestData());
+        $this->assertEquals('https://pangalink.net/banklink/swedbank-common', $request->getRequestUrl());
+    }
+
     public function testHandlePaymentResponseSuccessWithSpecialCharacters()
     {
         $now = new \DateTime();

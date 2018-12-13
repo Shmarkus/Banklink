@@ -90,7 +90,7 @@ class Solo implements ProtocolInterface
      *
      * @return array
      */
-    public function preparePaymentRequestData($orderId, $sum, $message, $outputEncoding, $language = 'EST', $currency = 'EUR')
+    public function preparePaymentRequestData($orderId, $sum, $message, $outputEncoding, $language = 'EST', $currency = 'EUR', $referencePrefix = null)
     {
         $requestData = array(
             Fields::PROTOCOL_VERSION    => $this->protocolVersion,
@@ -99,7 +99,7 @@ class Solo implements ProtocolInterface
             Fields::ORDER_ID            => $orderId,
             Fields::SUM                 => $sum,
             Fields::CURRENCY            => $currency,
-            Fields::ORDER_REFERENCE     => ProtocolUtils::generateOrderReference($orderId),
+            Fields::ORDER_REFERENCE     => ProtocolUtils::generateOrderReference($orderId, $referencePrefix),
             Fields::DESCRIPTION         => $message,
             Fields::SUCCESS_URL         => $this->endpointUrl,
             Fields::CANCEL_URL          => $this->endpointUrl,

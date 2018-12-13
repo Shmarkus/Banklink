@@ -2,8 +2,8 @@
 
 namespace Banklink;
 
-use Banklink\Request\PaymentRequest;
 use Banklink\Protocol\ProtocolInterface;
+use Banklink\Request\PaymentRequest;
 
 /**
  * General abstract class that defines public API for all banklink implementations
@@ -23,6 +23,8 @@ abstract class Banklink
 
     protected $requestEncoding = 'UTF-8';
     protected $responseEncoding = 'UTF-8';
+
+    protected $referencePrefix;
 
     /**
      * @param \Banklink\Protocol\ProtocolInterface $protocol
@@ -45,7 +47,15 @@ abstract class Banklink
      */
     public function preparePaymentRequest($orderId, $sum, $message, $language = 'EST', $currency = 'EUR')
     {
-        $requestData = $this->protocol->preparePaymentRequestData($orderId, $sum, $message, $this->requestEncoding, $language, $currency);
+        $requestData = $this->protocol->preparePaymentRequestData(
+            $orderId, 
+            $sum, 
+            $message, 
+            $this->requestEncoding, 
+            $language, 
+            $currency, 
+            $this->referencePrefix
+        );
         $requestData = array_merge($requestData, $this->getAdditionalFields());
 
         return new PaymentRequest($this->getRequestUrl(), $requestData);
@@ -109,5 +119,15 @@ abstract class Banklink
     public function setTestUrl($testUrl)
     {
         $this->testRequestUrl = $testUrl;
+    }
+
+    /**
+     * Set reference prefix
+     *
+     * @param string $prefix
+     */
+    public function setReferencePrefix($prefix)
+    {
+        $this->referencePrefix = $prefix;
     }
 }

@@ -28,15 +28,10 @@ class ProtocolUtils
         $orderId = (string)$orderId;
 
         /**
-         * BANKLINK_PREFIX is 101
+         * $prefix is 101
          * We generate reference as let's say if orderId = 5 then 10100000000000000055
          * This prevents conflict between one account with multiple services
-         * I did not do it as method param because i didn't want to go over all the places i use this method :)
          */
-        if (defined('BANKLINK_PREFIX')) {
-            $orderId = self::generatePrefixOrderId(BANKLINK_PREFIX, $orderId, $prefixNumberLength);
-        }
-
         if (!empty($prefix)) {
             $orderId = self::generatePrefixOrderId($prefix, $orderId, $prefixNumberLength);
         }
