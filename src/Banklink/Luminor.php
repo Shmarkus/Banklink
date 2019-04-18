@@ -14,7 +14,7 @@ use Banklink\Protocol\iPizza;
  */
 class Luminor extends Banklink
 {
-    protected $productionRequestUrl = 'https://netbank.nordea.com/pnbepay/epayn.jsp';
+    protected $productionRequestUrl = 'https://netbank.nordea.com/pnbepay/epayp.jsp';
     protected $testRequestUrl = 'https://netbank.nordea.com/pnbepaytest/epayp.jsp';
 
     /**
